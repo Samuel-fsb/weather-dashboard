@@ -1,10 +1,11 @@
-function CurrentWeather(){
 
-    return(
-        <div>
-
-        </div>
-    );
-};
+function CurrentWeather() {
+  
+  return (
+    <>
+      
+    </>
+  )
+}
 
 export default CurrentWeather;
