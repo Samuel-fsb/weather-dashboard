@@ -9,32 +9,33 @@ function App() {
 
   useEffect(() => {
     const DadosAPI = async () => {
-
-    navigator.geolocation.getCurrentPosition = (posicao) => {
+    if (lat !== null){
+    navigator.geolocation.getCurrentPosition = ((posicao) => {
         const lat = posicao.coords.latitude;
         const lon = posicao.coords.longitude;
 
         SetLongitude(lon);
         Setlatidude(lat);
 
+        try {
+          const Dados = (await fetch( `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`));
+          const DadosFormatados = await Dados.json();
+          SetTemperatura(DadosFormatados);
+        } catch (error) {
+          console.log("Houve um erro ao buscar as informações " + error)
+        }
+
         console.log(`latitude: ${lat}, Longitude: ${lon}`)
     }, (error) => {
-        console.log("Houve um erro ao buscar as suas coordenadas " + error.message)
-    };
+        console.log("Houve um erro ao buscar as suas coordenadas " + error.menssage)
+    });
 
 
-      try {
-        const Dados = (await fetch( `https://api.open-meteo.com/v1/forecast? ${lon}, ${lat}` ));
-        const Dadosformatados = await Dados.json();
-        SetTemperatura(DadosFomatados);
-      } catch (error) {
-        console.log("Houve um erro ao buscar as informações " + error)
-      }
 
     };
 
     DadosAPI();
-
+}
   }, [Cidade, lat, lon]);
 
   return (
