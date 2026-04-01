@@ -8,15 +8,20 @@ function App() {
   const [lat, Setlatidude] = useState(null);
 
   useEffect(() => {
-    const DadosAPI = async () => {
-    if (lat !== null){
-    navigator.geolocation.getCurrentPosition = ((posicao) => {
+    if (lat !== null || lon !== null){
+      navigator.geolocation.getCurrentPosition((posicao) => {
         const lat = posicao.coords.latitude;
         const lon = posicao.coords.longitude;
-
+        
         SetLongitude(lon);
         Setlatidude(lat);
 
+        console.log(`latitude: ${lat}, Longitude: ${lon}`)
+      }, (error) => {
+          console.log("Houve um erro ao buscar as suas coordenadas " + error.menssage);
+
+      } else {
+      const DadosAPI = async () => {
         try {
           const Dados = (await fetch( `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`));
           const DadosFormatados = await Dados.json();
@@ -24,18 +29,9 @@ function App() {
         } catch (error) {
           console.log("Houve um erro ao buscar as informações " + error)
         }
-
-        console.log(`latitude: ${lat}, Longitude: ${lon}`)
-    }, (error) => {
-        console.log("Houve um erro ao buscar as suas coordenadas " + error.menssage)
-    });
-
-
-
-    };
-
-    DadosAPI();
-}
+        DadosAPI();
+      }
+    }
   }, [Cidade, lat, lon]);
 
   return (
