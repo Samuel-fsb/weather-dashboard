@@ -3,36 +3,33 @@ import './App.css'
 
 function App() {
   const [Temperatura, SetTemperatura] = useState(25);
-  const [Cidade] = useState();
+  const [Cidade] = useState(null);
   const [lon, SetLongitude] = useState(null);
-  const [lat, Setlatidude] = useState(null);
+  const [lat, SetLatitude] = useState(null);
 
   useEffect(() => {
-    if (lat !== null || lon !== null){
-      navigator.geolocation.getCurrentPosition((posicao) => {
-        const lat = posicao.coords.latitude;
-        const lon = posicao.coords.longitude;
-        
-        SetLongitude(lon);
-        Setlatidude(lat);
 
-        console.log(`latitude: ${lat}, Longitude: ${lon}`)
-      }, (error) => {
-          console.log("Houve um erro ao buscar as suas coordenadas " + error.menssage);
+    try {
+      const BuscarClima = async () => {
+        const Dados = (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`));
+        const DadosFormatados = await Dados.json();
+        SetTemperatura(DadosFormatados.current_weather.temperature);
+      };
+    } catch (error) {
+      console.log("Houve um erro ao buscar os dados " + error);
+    };
 
-      } else {
-      const DadosAPI = async () => {
-        try {
-          const Dados = (await fetch( `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`));
-          const DadosFormatados = await Dados.json();
-          SetTemperatura(DadosFormatados);
-        } catch (error) {
-          console.log("Houve um erro ao buscar as informações " + error)
-        }
-        DadosAPI();
-      }
-    }
+    if(lat === null){
+      navigator.geolocation.getCurrentPosition(
+        (position) => { SetLatitude, SetLongitude },
+        (erro) => { console.log("Houve um erro ao buscar a localização " + erro.message) }
+      );
+    } else {
+      BuscarClima()
+    };
+
   }, [Cidade, lat, lon]);
+
 
   return (
     <>
