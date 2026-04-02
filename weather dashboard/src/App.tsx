@@ -9,19 +9,22 @@ function App() {
 
   useEffect(() => {
 
-    try {
-      const BuscarClima = async () => {
+    const BuscarClima = async () => {
+      try {
         const Dados = (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`));
         const DadosFormatados = await Dados.json();
         SetTemperatura(DadosFormatados.current_weather.temperature);
-      };
-    } catch (error) {
+      } catch (error) {
       console.log("Houve um erro ao buscar os dados " + error);
-    };
+      };
 
     if(lat === null){
       navigator.geolocation.getCurrentPosition(
-        (position) => { SetLatitude, SetLongitude },
+        (position) => { SetLatitude(position.coords.latitude);
+                        SetLongitude(position.coords.longitude)
+        
+        },
+
         (erro) => { console.log("Houve um erro ao buscar a localização " + erro.message) }
       );
     } else {
@@ -29,6 +32,7 @@ function App() {
     };
 
   }, [Cidade, lat, lon]);
+
 
 
   return (
