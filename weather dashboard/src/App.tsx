@@ -6,6 +6,7 @@ function App() {
   const [Cidade] = useState(null);
   const [lon, SetLongitude] = useState(null);
   const [lat, SetLatitude] = useState(null);
+  const [Carregamento, SetCarregamento] = useState(false);
 
   useEffect(() => {
 
@@ -21,18 +22,18 @@ function App() {
     if(lat === null){
       navigator.geolocation.getCurrentPosition(
         (position) => { SetLatitude(position.coords.latitude);
-                        SetLongitude(position.coords.longitude)
-        
-        },
+                        SetLongitude(position.coords.longitude);
 
-        (erro) => { console.log("Houve um erro ao buscar a localização " + erro.message) }
+                        console.log("Localização capturada com sucesso!");
+        
+        }, (erro) => { console.log("Houve um erro ao buscar a localização " + erro.message) }
       );
-    } else {
-      BuscarClima()
     };
 
-  }, [Cidade, lat, lon]);
+    BuscarClima()
+    
 
+  }, [Cidade, lat, lon]);
 
 
   return (
