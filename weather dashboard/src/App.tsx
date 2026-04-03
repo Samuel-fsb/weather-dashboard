@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const [Temperatura, SetTemperatura] = useState(25);
+  const [Temperatura, SetTemperatura] = useState();
   const [Cidade] = useState(null);
   const [lon, SetLongitude] = useState(null);
   const [lat, SetLatitude] = useState(null);
@@ -10,14 +10,19 @@ function App() {
 
   useEffect(() => {
 
-    const BuscarClima = async () => {
+    
+    const BuscarClima = async (lat, lon) => {
       try {
         const Dados = (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`));
         const DadosFormatados = await Dados.json();
         SetTemperatura(DadosFormatados.current_weather.temperature);
       } catch (error) {
-      console.log("Houve um erro ao buscar os dados " + error);
+        console.log("Houve um erro ao buscar os dados " + error);
+      } finally{
+        SetCarregamento(false);
       };
+
+      SetCarregamento(true);
 
     if(lat === null){
       navigator.geolocation.getCurrentPosition(
@@ -26,21 +31,24 @@ function App() {
 
                         console.log("Localização capturada com sucesso!");
         
-        }, (erro) => { console.log("Houve um erro ao buscar a localização " + erro.message) }
+        }, (erro) => { console.log("Houve um erro ao buscar a localização " + erro.message) 
+           SetCarregamento(false);
+        }
       );
+    } else{
+      BuscarClima(lat, lon);
+        };
     };
-
-    BuscarClima()
     
 
-  }, [Cidade, lat, lon]);
+  }, [lat, lon]);
 
 
   return (
     <>
-      
+        {Carregamento === true ? <h1>Carregando...</h1> : <h1>{Temperatura}°</h1> }
     </>
   )
 }
 
-export default App
+export default App;
