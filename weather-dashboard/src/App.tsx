@@ -51,7 +51,7 @@ function App() {
                           cidade: LocalidadeAtual.locality,
                           estado: LocalidadeAtual.principalSubdivision,
                           pais: LocalidadeAtual.countryName,
-                                            }
+                        }
             
       )} catch (error) {
         console.log("Houve um erro ao buscar o nome da sua cidade " + error);
@@ -70,7 +70,7 @@ function App() {
   return (
     <>
         {Carregamento === true ? <h1>Carregando...</h1> : <h1>{Temperatura}°</h1> }
-        {BuscarCidade === true ? <h1>Carregando...</h1> : <h1>{Localizacao}</h1>}
+        {BuscarCidade === true ? <h1>Carregando...</h1> : <h1>{Localizacao.cidade} - {Localizacao.estado}, {Localizacao.pais}</h1> }
     </>
   )
 }
