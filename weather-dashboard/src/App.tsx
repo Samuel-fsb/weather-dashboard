@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const [Temperatura, SetTemperatura] = useState();
+  const [Temperatura, SetTemperatura] = useState(25);
   const [Cidade, SetCidade] = useState(null);
   const [lon, SetLongitude] = useState(null);
   const [lat, SetLatitude] = useState(null);
@@ -12,9 +12,9 @@ function App() {
   useEffect(() => {
 
     
-    const BuscarClima = async (lat, lon) => {
+    const BuscarClima = async (latitude, longitude) => {
       try {
-        const Dados = (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`));
+        const Dados = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
         const DadosFormatados = await Dados.json();
         SetTemperatura(DadosFormatados.current_weather.temperature);
       } catch (error) {
@@ -22,7 +22,8 @@ function App() {
       } finally{
         SetCarregamento(false);
       };
-
+      
+    };
       SetCarregamento(true);
 
     if(lat === null){
@@ -38,23 +39,23 @@ function App() {
       );
     } else{
       BuscarClima(lat, lon);
-        };
     };
     
     SetBuscarCidade(true);
 
     const CidadeAtual = async () => {
       try {
-        const Localidade = (await fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=pt'))
-        const LocalidadeAtual = Localidade.json();
+        const Localidade = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=pt`)
+        const LocalidadeAtual = await Localidade.json();
         SetCidade(LocalidadeAtual);
       } catch (error) {
         console.log("Houve um erro ao buscar o nome da sua cidade " + error);
       } finally{
         SetBuscarCidade(false);
       }
+      CidadeAtual();
     };
-
+    
   }, [lat, lon, Cidade]);
 
 
