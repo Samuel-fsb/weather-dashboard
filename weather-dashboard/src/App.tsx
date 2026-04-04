@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const [Temperatura, SetTemperatura] = useState(25);
-  const [Cidade, SetCidade] = useState(null);
+  const [Temperatura, SetTemperatura] = useState();
+  const [Localizacao, SetLocalizacao] = useState({cidade: '', estado: '', pais: ''});
   const [lon, SetLongitude] = useState(null);
   const [lat, SetLatitude] = useState(null);
   const [Carregamento, SetCarregamento] = useState(false);
@@ -47,8 +47,13 @@ function App() {
       try {
         const Localidade = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=pt`)
         const LocalidadeAtual = await Localidade.json();
-        SetCidade(LocalidadeAtual.locality);
-      } catch (error) {
+        SetLocalizacao( {
+                          cidade: LocalidadeAtual.locality,
+                          estado: LocalidadeAtual.principalSubdivision,
+                          pais: LocalidadeAtual.countryName,
+                                            }
+            
+      )} catch (error) {
         console.log("Houve um erro ao buscar o nome da sua cidade " + error);
       } finally{
         SetBuscarCidade(false);
@@ -65,7 +70,7 @@ function App() {
   return (
     <>
         {Carregamento === true ? <h1>Carregando...</h1> : <h1>{Temperatura}°</h1> }
-        {BuscarCidade === true ? <h1>Carregando...</h1> : <h1>{Cidade}</h1>}
+        {BuscarCidade === true ? <h1>Carregando...</h1> : <h1>{Localizacao}</h1>}
     </>
   )
 }
