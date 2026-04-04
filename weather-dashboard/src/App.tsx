@@ -47,16 +47,19 @@ function App() {
       try {
         const Localidade = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=pt`)
         const LocalidadeAtual = await Localidade.json();
-        SetCidade(LocalidadeAtual);
+        SetCidade(LocalidadeAtual.locality);
       } catch (error) {
         console.log("Houve um erro ao buscar o nome da sua cidade " + error);
       } finally{
         SetBuscarCidade(false);
       }
-      CidadeAtual();
     };
     
-  }, [lat, lon, Cidade]);
+    if(lat !== null){
+      CidadeAtual();
+    }
+    
+  }, [lat, lon]);
 
 
   return (
