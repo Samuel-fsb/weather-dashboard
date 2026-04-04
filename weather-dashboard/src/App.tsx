@@ -3,10 +3,11 @@ import './App.css'
 
 function App() {
   const [Temperatura, SetTemperatura] = useState();
-  const [Cidade] = useState(null);
+  const [Cidade, SetCidade] = useState(null);
   const [lon, SetLongitude] = useState(null);
   const [lat, SetLatitude] = useState(null);
   const [Carregamento, SetCarregamento] = useState(false);
+  const [BuscarCidade, SetBuscarCidade] = useState(true);
 
   useEffect(() => {
 
@@ -40,13 +41,27 @@ function App() {
         };
     };
     
+    SetBuscarCidade(true);
 
-  }, [lat, lon]);
+    const CidadeAtual = async () => {
+      try {
+        const Localidade = (await fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=pt'))
+        const LocalidadeAtual = Localidade.json();
+        SetCidade(LocalidadeAtual);
+      } catch (error) {
+        console.log("Houve um erro ao buscar o nome da sua cidade " + error);
+      } finally{
+        SetBuscarCidade(false);
+      }
+    };
+
+  }, [lat, lon, Cidade]);
 
 
   return (
     <>
         {Carregamento === true ? <h1>Carregando...</h1> : <h1>{Temperatura}°</h1> }
+        {BuscarCidade === true ? <h1>Carregando...</h1> : <h1>{Cidade}</h1>}
     </>
   )
 }
