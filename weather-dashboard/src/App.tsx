@@ -24,6 +24,9 @@ function App() {
       3: "Nublado ☁️",
       61: "Chuva Leve 🌧️"
     }
+
+    
+
     
   //função função assíncrona para buscar os dados de clima.
     const BuscarClima = async (latitude, longitude) => {
@@ -91,9 +94,9 @@ function App() {
     <>
         <div className='AppClima'>
           {(Carregamento || BuscarCidade) ? (<h1>Carregando...</h1>) : (<>
-          <h1></h1>
-          <h2></h2>
-          
+          <h1 className='temperatura_destaque'>{Temperatura} °C</h1>
+          <h2>{StatusClima}</h2>
+          <h1 className='localizacao'>{Localizacao.cidade} - {Localizacao.estado}, {Localizacao.pais}</h1>
           </>)
           }
         </div>

@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body{
+    background-image: url(../img/imagem-de-fundo.jpg);
+}
+
 .AppClima{
     display: flex;
     flex-direction: column;
@@ -13,14 +17,14 @@
     width: 90%;
     height: 270px;
     margin: 20px;
-    background-color: rgba(15, 15, 235, 0.75);
+    background-color: rgba(69, 69, 245, 0.729);
     border-radius: 4px;
     box-shadow: 2px 2px 2px black;
     color: white;
     gap: 40px;
 }
 
-.temperatura-destaque{
+.temperatura_destaque{
     font-size: 70px;
 }
 
