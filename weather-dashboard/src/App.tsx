@@ -2,16 +2,19 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
+  //Craindo as variáveis com estado.
   const [Temperatura, SetTemperatura] = useState();
   const [Localizacao, SetLocalizacao] = useState({cidade: '', estado: '', pais: ''});
   const [lon, SetLongitude] = useState(null);
   const [lat, SetLatitude] = useState(null);
+
+  //Tela de carregamento.
   const [Carregamento, SetCarregamento] = useState(false);
   const [BuscarCidade, SetBuscarCidade] = useState(true);
 
   useEffect(() => {
 
-    
+  //função função assíncrona para buscar os dados de clima.
     const BuscarClima = async (latitude, longitude) => {
       try {
         const Dados = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
@@ -26,6 +29,7 @@ function App() {
     };
       SetCarregamento(true);
 
+    //Função para buscar a latitude e logitute.
     if(lat === null){
       navigator.geolocation.getCurrentPosition(
         (position) => { SetLatitude(position.coords.latitude);
@@ -43,10 +47,13 @@ function App() {
     
     SetBuscarCidade(true);
 
+    //Função assíncrona para buscar a localização do usuário.
     const CidadeAtual = async () => {
       try {
         const Localidade = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=pt`)
         const LocalidadeAtual = await Localidade.json();
+
+        //Buscando os dados retornados do objeto e atualizando o estado da variável.
         SetLocalizacao( {
                           cidade: LocalidadeAtual.locality,
                           estado: LocalidadeAtual.principalSubdivision,
