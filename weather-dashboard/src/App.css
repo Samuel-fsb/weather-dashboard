@@ -13,11 +13,11 @@
     width: 90%;
     height: 270px;
     margin: 20px;
-    background-color: rgba(41, 41, 173, 0.75);
+    background-color: rgba(15, 15, 235, 0.75);
     border-radius: 4px;
     box-shadow: 2px 2px 2px black;
     color: white;
-    gap: 80px;
+    gap: 40px;
 }
 
 .temperatura-destaque{

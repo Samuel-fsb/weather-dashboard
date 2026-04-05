@@ -12,26 +12,26 @@ function App() {
   //Tela de carregamento.
   const [Carregamento, SetCarregamento] = useState(false);
   const [BuscarCidade, SetBuscarCidade] = useState(true);
-
+  
+  
   useEffect(() => {
-
+    
+    //Esse objeto serve para colocar um status na tela dependente do clima.
+    const TraducaoClima = {
+      0: "Céu Limpo ☀️",
+      1: "Céu Quase Limpo 🌤️",
+      2: "Parcialmente Nublado ⛅",
+      3: "Nublado ☁️",
+      61: "Chuva Leve 🌧️"
+    }
+    
   //função função assíncrona para buscar os dados de clima.
     const BuscarClima = async (latitude, longitude) => {
       try {
         const Dados = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
         const DadosFormatados = await Dados.json();
         SetTemperatura(DadosFormatados.current_weather.temperature);
-        SetStatusClima(DadosFormatados.current_weather.weathercode);
-
-        if(StatusClima = 0 ){
-
-        }else if(){
-
-        } else {
-
-        };
-
-
+        SetStatusClima(TraducaoClima[DadosFormatados.current_weather.weathercode]);
 
       } catch (error) {
         console.log("Houve um erro ao buscar os dados " + error);
@@ -90,9 +90,12 @@ function App() {
   return (
     <>
         <div className='AppClima'>
-          {Carregamento === true ? <h1>Carregando...</h1> : <h1 className='temperatura-destaque'>{Temperatura}°</h1> }
-          {StatusClima}
-          {BuscarCidade === true ? <h1>Carregando...</h1> : <h1 className='localizacao'>{Localizacao.cidade} - {Localizacao.estado}, {Localizacao.pais}</h1> }
+          {(Carregamento || BuscarCidade) ? (<h1>Carregando...</h1>) : (<>
+          <h1></h1>
+          <h2></h2>
+          
+          </>)
+          }
         </div>
     </>
   )
