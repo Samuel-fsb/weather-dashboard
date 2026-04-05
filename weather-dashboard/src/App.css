@@ -1,0 +1,27 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.AppClima{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 90%;
+    height: 70%;
+    background-color: rgba(105, 105, 242, 0.75);
+    border-radius: 4px;
+    box-shadow: 2px 2px 2px black;
+    color: white;
+}
+
+.temperatura-destaque{
+    font-size: 70px;
+}
+
+.localizacao{
+    font-size: 30px;
+}

@@ -69,8 +69,10 @@ function App() {
 
   return (
     <>
-        {Carregamento === true ? <h1>Carregando...</h1> : <h1>{Temperatura}°</h1> }
-        {BuscarCidade === true ? <h1>Carregando...</h1> : <h1>{Localizacao.cidade} - {Localizacao.estado}, {Localizacao.pais}</h1> }
+        <div className='AppClima'>
+          {Carregamento === true ? <h1>Carregando...</h1> : <h1 className='temperatura-destaque'>{Temperatura}°</h1> }
+          {BuscarCidade === true ? <h1>Carregando...</h1> : <h1 className='localizacao'>{Localizacao.cidade} - {Localizacao.estado}, {Localizacao.pais}</h1> }
+        </div>
     </>
   )
 }
