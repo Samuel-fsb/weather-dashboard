@@ -7,6 +7,7 @@ function App() {
   const [Localizacao, SetLocalizacao] = useState({cidade: '', estado: '', pais: ''});
   const [lon, SetLongitude] = useState(null);
   const [lat, SetLatitude] = useState(null);
+  const [StatusClima, SetStatusClima] = useState('');
 
   //Tela de carregamento.
   const [Carregamento, SetCarregamento] = useState(false);
@@ -20,6 +21,18 @@ function App() {
         const Dados = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
         const DadosFormatados = await Dados.json();
         SetTemperatura(DadosFormatados.current_weather.temperature);
+        SetStatusClima(DadosFormatados.current_weather.weathercode);
+
+        if(StatusClima = 0 ){
+
+        }else if(){
+
+        } else {
+
+        };
+
+
+
       } catch (error) {
         console.log("Houve um erro ao buscar os dados " + error);
       } finally{
@@ -78,6 +91,7 @@ function App() {
     <>
         <div className='AppClima'>
           {Carregamento === true ? <h1>Carregando...</h1> : <h1 className='temperatura-destaque'>{Temperatura}°</h1> }
+          {StatusClima}
           {BuscarCidade === true ? <h1>Carregando...</h1> : <h1 className='localizacao'>{Localizacao.cidade} - {Localizacao.estado}, {Localizacao.pais}</h1> }
         </div>
     </>
