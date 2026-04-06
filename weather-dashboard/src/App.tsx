@@ -1,13 +1,33 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 
+
+interface DadosLocalizacao{
+  cidade: string;
+  estado: string;
+  pais: string;
+};
+
 function App() {
   //Craindo as variáveis com estado.
-  const [Temperatura, SetTemperatura] = useState();
-  const [Localizacao, SetLocalizacao] = useState({cidade: '', estado: '', pais: ''});
-  const [lon, SetLongitude] = useState(null);
-  const [lat, SetLatitude] = useState(null);
-  const [StatusClima, SetStatusClima] = useState('');
+  const [Temperatura, SetTemperatura] = useState<number | null>(null);
+  const [Localizacao, SetLocalizacao] = useState<DadosLocalizacao>({cidade: '', estado: '', pais: ''});
+  const [lon, SetLongitude] = useState<number | null>(null);
+  const [lat, SetLatitude] = useState<number | null >(null);
+  const [StatusClima, SetStatusClima] = useState("Carregando Status do Clima...");
+
+  
+  //Função para alerta de clima.
+  const AlertaClima = (StatusClima: number) => {
+  if(StatusClima === 0 ) return "Céu Limpo ☀️";
+  if(StatusClima >= 1 && StatusClima <= 3) return "Nublado ⛅";
+  if(StatusClima >= 45 && StatusClima <= 48) return "Nevoeiro ";
+  if(StatusClima >= 51 && StatusClima <= 55) return "Garoa ";
+  if(StatusClima >= 61 && StatusClima <= 65) return "Chuva ";
+  if(StatusClima >= 71 && StatusClima <= 77) return "Neve ";
+  if(StatusClima >= 95 && StatusClima <= 99) return "Tempestade ⛈️";
+  return "Clima Desconhecido";
+  }
 
   //Tela de carregamento.
   const [Carregamento, SetCarregamento] = useState(false);
@@ -15,26 +35,8 @@ function App() {
   
   
   useEffect(() => {
-    
-    //Esse objeto serve para colocar um status na tela dependente do clima.
-    /*const TraducaoClima = {
-      0: "Céu Limpo ☀️",
-      1: "Céu Quase Limpo 🌤️",
-      2: "Parcialmente Nublado ⛅",
-      3: "Nublado ☁️",
-      61: "Chuva Leve 🌧️"
-    }*/
 
-    //Função para alerta de clima.
-    const AlertaClima = (Codigo) => {
-    if(Codigo === 0 ) return "Céu Limpo ☀️";
-    if(Codigo >= 1 &&  3 <= Codigo) return "Nublado ⛅";
-    if(Codigo >= 45 && 48 <= Codigo) return "Nevoeiro ";
-    if(Codigo >= 51 && 55 <= Codigo) return "Garoa ";
-    if(Codigo >= 61 && 65 <= Codigo) return "Chuva ";
-    if(Codigo >= 71 && 77 <= Codigo) return "Neve ";
-    if(Codigo >= 95 && 99 <= Codigo) return "Tempestade ";
-    }
+  
     
   //função função assíncrona para buscar os dados de clima.
     const BuscarClima = async (latitude, longitude) => {
@@ -42,7 +44,7 @@ function App() {
         const Dados = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
         const DadosFormatados = await Dados.json();
         SetTemperatura(DadosFormatados.current_weather.temperature);
-        SetStatusClima(Codigo[DadosFormatados.current_weather.weathercode]);
+        SetStatusClima(AlertaClima(DadosFormatados.current_weather.weathercode));
 
       } catch (error) {
         console.log("Houve um erro ao buscar os dados " + error);
