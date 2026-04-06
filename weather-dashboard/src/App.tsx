@@ -17,16 +17,24 @@ function App() {
   useEffect(() => {
     
     //Esse objeto serve para colocar um status na tela dependente do clima.
-    const TraducaoClima = {
+    /*const TraducaoClima = {
       0: "Céu Limpo ☀️",
       1: "Céu Quase Limpo 🌤️",
       2: "Parcialmente Nublado ⛅",
       3: "Nublado ☁️",
       61: "Chuva Leve 🌧️"
+    }*/
+
+    //Função para alerta de clima.
+    const AlertaClima = (Codigo) => {
+    if(Codigo === 0 ) return "Céu Limpo ☀️";
+    if(Codigo >= 1 &&  3 <= Codigo) return "Nublado ⛅";
+    if(Codigo >= 45 && 48 <= Codigo) return "Nevoeiro ";
+    if(Codigo >= 51 && 55 <= Codigo) return "Garoa ";
+    if(Codigo >= 61 && 65 <= Codigo) return "Chuva ";
+    if(Codigo >= 71 && 77 <= Codigo) return "Neve ";
+    if(Codigo >= 95 && 99 <= Codigo) return "Tempestade ";
     }
-
-    
-
     
   //função função assíncrona para buscar os dados de clima.
     const BuscarClima = async (latitude, longitude) => {
@@ -34,7 +42,7 @@ function App() {
         const Dados = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
         const DadosFormatados = await Dados.json();
         SetTemperatura(DadosFormatados.current_weather.temperature);
-        SetStatusClima(TraducaoClima[DadosFormatados.current_weather.weathercode]);
+        SetStatusClima(Codigo[DadosFormatados.current_weather.weathercode]);
 
       } catch (error) {
         console.log("Houve um erro ao buscar os dados " + error);
