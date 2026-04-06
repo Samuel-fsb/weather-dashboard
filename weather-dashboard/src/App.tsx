@@ -65,7 +65,8 @@ function App() {
         }
       );
     } else{
-      BuscarClima(lat, lon);
+        if(lat !== null && lon !== null)
+        BuscarClima(lat, lon);
     };
     
     SetBuscarCidade(true);
@@ -78,9 +79,9 @@ function App() {
 
         //Buscando os dados retornados do objeto e atualizando o estado da variável.
         SetLocalizacao( {
-                          cidade: LocalidadeAtual.locality,
-                          estado: LocalidadeAtual.principalSubdivision,
-                          pais: LocalidadeAtual.countryName,
+                          cidade: LocalidadeAtual.locality ?? '',
+                          estado: LocalidadeAtual.principalSubdivision ?? '',
+                          pais: LocalidadeAtual.countryName ?? '',
                         }
             
       )} catch (error) {
