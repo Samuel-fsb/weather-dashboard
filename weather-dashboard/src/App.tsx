@@ -36,16 +36,13 @@ function App() {
   
   useEffect(() => {
 
-  
-    
   //função função assíncrona para buscar os dados de clima.
-    const BuscarClima = async (latitude, longitude) => {
+    const BuscarClima = async (latitude:number, longitude:number) => {
       try {
         const Dados = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
         const DadosFormatados = await Dados.json();
-        SetTemperatura(DadosFormatados.current_weather.temperature);
-        SetStatusClima(AlertaClima(DadosFormatados.current_weather.weathercode));
-
+        SetTemperatura(DadosFormatados.current_weather?.temperature);
+        SetStatusClima(AlertaClima(DadosFormatados.current_weather?.weathercode ?? 0));
       } catch (error) {
         console.log("Houve um erro ao buscar os dados " + error);
       } finally{
@@ -56,7 +53,7 @@ function App() {
       SetCarregamento(true);
 
     //Função para buscar a latitude e logitute.
-    if(lat === null){
+    if(lat === null && lon === null){
       navigator.geolocation.getCurrentPosition(
         (position) => { SetLatitude(position.coords.latitude);
                         SetLongitude(position.coords.longitude);
@@ -93,7 +90,7 @@ function App() {
       }
     };
     
-    if(lat !== null){
+    if(lat !== null && lon !== null){
       CidadeAtual();
     }
     
