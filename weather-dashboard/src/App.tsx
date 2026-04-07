@@ -15,6 +15,7 @@ function App() {
   const [lon, SetLongitude] = useState<number | null>(null);
   const [lat, SetLatitude] = useState<number | null >(null);
   const [StatusClima, SetStatusClima] = useState("Carregando Status do Clima...");
+  const [Dia, SetDia] = useState<string | null>(null);
 
   
   //Função para alerta de clima.
@@ -33,7 +34,11 @@ function App() {
   const [Carregamento, SetCarregamento] = useState(false);
   const [BuscarCidade, SetBuscarCidade] = useState(true);
   
-  
+  //Função para mudar as classes do CSS dinamicamente.
+  const Periodo = (Dia: number) => {
+    return Dia === 1 ? "dia" : "noite";
+  };
+
   useEffect(() => {
 
   //função função assíncrona para buscar os dados de clima.
@@ -43,6 +48,7 @@ function App() {
         const DadosFormatados = await Dados.json();
         SetTemperatura(DadosFormatados.current_weather?.temperature);
         SetStatusClima(AlertaClima(DadosFormatados.current_weather?.weathercode ?? 0));
+        SetDia(Periodo(DadosFormatados.current_weather?.is_day));
       } catch (error) {
         console.log("Houve um erro ao buscar os dados " + error);
       } finally{
