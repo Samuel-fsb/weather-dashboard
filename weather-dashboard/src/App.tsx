@@ -108,11 +108,13 @@ function App() {
             <p>Não esqueça o guarda chuva hoje!</p>
         </section>
 
-            <section className='Informacoes'>
-              <h1 className='temperatura_destaque'>{Temperatura} °C</h1>
-              <h2>{StatusClima}</h2>
-              <h1 className='localizacao'>{Localizacao.cidade} - {Localizacao.estado}, {Localizacao.pais}</h1>
-            </section>
+        <section className='Informacoes'>
+          {(Carregamento || BuscarCidade) ? (<h1>Carregando...</h1>) :
+          (<><h1 className='temperatura_destaque'>{Temperatura} °C</h1>
+          <h2>{StatusClima}</h2>
+          <h1 className='localizacao'>{Localizacao.cidade} - {Localizacao.estado}, {Localizacao.pais}</h1>
+          </>)}
+        </section>
 
         <footer>
          { /* Desenvolverdor e GitHub */ }
