@@ -21,10 +21,10 @@ function App() {
   const AlertaClima = (StatusClima: number) => {
   if(StatusClima === 0 ) return "Céu Limpo ☀️";
   if(StatusClima >= 1 && StatusClima <= 3) return "Nublado ⛅";
-  if(StatusClima >= 45 && StatusClima <= 48) return "Nevoeiro ";
-  if(StatusClima >= 51 && StatusClima <= 55) return "Garoa ";
-  if(StatusClima >= 61 && StatusClima <= 65) return "Chuva ";
-  if(StatusClima >= 71 && StatusClima <= 77) return "Neve ";
+  if(StatusClima >= 45 && StatusClima <= 48) return "Nevoeiro 🌫️";
+  if(StatusClima >= 51 && StatusClima <= 55) return "Garoa 🌦️";
+  if(StatusClima >= 61 && StatusClima <= 65) return "Chuva 🌧️";
+  if(StatusClima >= 71 && StatusClima <= 77) return "Neve ❄️";
   if(StatusClima >= 95 && StatusClima <= 99) return "Tempestade ⛈️";
   return "Clima Desconhecido";
   }
