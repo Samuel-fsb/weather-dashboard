@@ -15,7 +15,7 @@ function App() {
   const [lon, SetLongitude] = useState<number | null>(null);
   const [lat, SetLatitude] = useState<number | null >(null);
   const [StatusClima, SetStatusClima] = useState("Carregando Status do Clima...");
-  const [Dia, SetDia] = useState<string | null>(null);
+  const [HorarioDia, SetHorarioDia] = useState<string | null>(null);
 
   
   //Função para alerta de clima.
@@ -35,8 +35,12 @@ function App() {
   const [BuscarCidade, SetBuscarCidade] = useState(true);
   
   //Função para mudar as classes do CSS dinamicamente.
-  const Periodo = (Dia: number) => {
-    return Dia === 1 ? "dia" : "noite";
+  const Periodo = (HorarioTexto: string ,HorarioDia: number) => {
+      const HoraAtual = new Date(HorarioTexto).getHours();
+
+      if(HorarioDia === 0) return "noite";
+      if(HoraAtual >= 12 && HoraAtual < 18) return "tarde";
+      return "dia";
   };
 
   useEffect(() => {
@@ -48,7 +52,8 @@ function App() {
         const DadosFormatados = await Dados.json();
         SetTemperatura(DadosFormatados.current_weather?.temperature);
         SetStatusClima(AlertaClima(DadosFormatados.current_weather?.weathercode ?? 0));
-        SetDia(Periodo(DadosFormatados.current_weather?.is_day));
+        SetHorarioDia(Periodo(DadosFormatados.current_weather.time ?? "",
+                              DadosFormatados.current_weather?.is_day ?? 0));
       } catch (error) {
         console.log("Houve um erro ao buscar os dados " + error);
       } finally{
@@ -105,7 +110,7 @@ function App() {
 
 
   return (
-        <div className={`AppClima ${Dia}`}>
+        <div className={`AppClima ${HorarioDia}`}>
           <header className='Menu'>
             { /* Ícone menu / Opções */ }
           </header>
