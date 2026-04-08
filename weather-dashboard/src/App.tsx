@@ -23,7 +23,7 @@ function App() {
   if(StatusClima === 0 ) return "Céu Limpo ☀️, O dia está perfeito para fazer atividades ao ar livre! 👟";
   if(StatusClima >= 1 && StatusClima <= 3) return "Nublado ⛅, um clima ameno, ideal para focar nos estudos ou trabalho. 📚";
   if(StatusClima >= 45 && StatusClima <= 48) return "Nevoeiro 🌫️, Cuidado na estrada, a visibilidade está baixa! 🚗.";
-  if(StatusClima >= 51 && StatusClima <= 55) return "Garoa 🌦️, Uma garou fina lá fora. Um lece casaco basta! 🧥";
+  if(StatusClima >= 51 && StatusClima <= 55) return "Garoa 🌦️, Uma garoa fina lá fora. Um leve casaco basta! 🧥";
   if(StatusClima >= 61 && StatusClima <= 65) return "Chuva 🌧️, Melhor levar um guarda-chuva e preparar um café quente! ☕";
   if(StatusClima >= 71 && StatusClima <= 77) return "Neve ❄️, Agasalhe-se bem, o frio está intenso! 🧣";
   if(StatusClima >= 95 && StatusClima <= 99) return "Tempestade ⛈️, Fique em um local seguro e evite sair. 🏠";
@@ -106,25 +106,24 @@ function App() {
 
   return (
         <div className={`AppClima ${Dia}`}>
-        <header className='Menu'>
-          { /* Ícone menu / Opções */ }
-        </header>
+          <header className='Menu'>
+            { /* Ícone menu / Opções */ }
+          </header>
 
-        <section className='Conselho'>
-            <h2>{StatusClima}</h2>
-        </section>
+          <section className='Conselho'>
+              <h2>{StatusClima}</h2>
+          </section>
 
-        <section className='Informacoes'>
-          {(Carregamento || BuscarCidade) ? (<h1>Carregando...</h1>) :
-          (<><h1 className='temperatura_destaque'>{Temperatura} °C</h1>
-          <h1 className='localizacao'>{Localizacao.cidade} - {Localizacao.estado}, {Localizacao.pais}</h1>
-          </>)}
-        </section>
+          <section className='Informacoes'>
+            {(Carregamento || BuscarCidade) ? (<h1>Carregando...</h1>) :
+            (<><h1 className='temperatura_destaque'>{Temperatura} °C</h1>
+            <h1 className='localizacao'>{Localizacao.cidade} - {Localizacao.estado}, {Localizacao.pais}</h1>
+            </>)}
+          </section>
 
-        <footer>
-         { /* Nome Do Desenvolverdor e GitHub */ }
-        </footer>
-   
+          <footer>
+          { /* Nome Do Desenvolverdor e GitHub */ }
+          </footer>
         </div>
   )
 }
