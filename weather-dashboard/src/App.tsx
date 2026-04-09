@@ -128,6 +128,7 @@ function App() {
 
           <footer>
           { /* Nome Do Desenvolverdor e GitHub */ }
+
           </footer>
         </div>
   )
