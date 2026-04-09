@@ -39,7 +39,7 @@ function App() {
   const Periodo = (HorarioTexto: string ,HorarioDia: number) => {
       const HoraAtual = new Date(HorarioTexto).getHours();
 
-      if(HorarioDia === 0) return "noite";
+      if(HorarioDia === 0 && HorarioDia ) return "noite";
       if(HoraAtual >= 12 && HoraAtual < 18) return "tarde";
       return "dia";
   };
@@ -110,8 +110,10 @@ function App() {
   }, [lat, lon]);
 
 
-  //Função para 
-
+  //Função para abrir e fechar o menu
+  const MudarMenu = () => {
+      SetMenu(!Menu);
+  };
 
 
 
@@ -119,7 +121,14 @@ function App() {
   return (
         <div className={`AppClima ${HorarioDia}`}>
           <header className='Menu'>
-            {  }
+            <div className='Logo'>
+              <img src="" alt="" />
+            </div>
+
+            <div className='Menu' onClick={MudarMenu}>
+              
+              { Menu /* Colocar o ícone de barras na parte de cima */}
+            </div>
           </header>
 
           <section className='Informacoes'>
