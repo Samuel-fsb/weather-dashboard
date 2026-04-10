@@ -122,10 +122,11 @@ function App() {
         <div className={`AppClima ${HorarioDia}`}>
           <header className='Menu'>
             <div className='Logo'>
-              <img src="" alt="" />
+              <img src="../img/favicon.png" alt="Logo" />
+              <span>Weather Dashboard</span>
             </div>
 
-            <div className='Menu' onClick={MudarMenu}>
+            <div className='opcoes' onClick={MudarMenu}>
               
               { Menu /* Colocar o ícone de barras na parte de cima */}
             </div>
