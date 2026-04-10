@@ -114,6 +114,7 @@ function App() {
   //Função para abrir e fechar o menu
   const MudarMenu = () => {
       SetMenu(!Menu);
+      
   };
 
 
@@ -129,7 +130,7 @@ function App() {
 
             <div className='opcoes' onClick={MudarMenu}>
               <p><FaBars/></p>
-              { Menu /* Colocar o ícone de barras na parte de cima */}
+              { Menu === true ? "BarraLataral Aberta" : "BarraLateral"}
             </div>
           </header>
 

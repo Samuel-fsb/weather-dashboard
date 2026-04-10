@@ -57,7 +57,7 @@
     color: black;
 }
 
-.logo > span{
+span{
     color: black;
 }
 
@@ -72,6 +72,22 @@ img{
     color:  white;
     cursor: pointer;
     font-size: 30px;
+}
+
+.BarraLataral{
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: right 0.4s ease;
+    padding: 20px;
+    color: white;
+}
+
+.BarraLataral.Aberta{
+    right: 0;
 }
 
 .Conselho{
