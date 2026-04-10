@@ -36,22 +36,42 @@
     font-size: 70px;
 }
 
-/*
+
 .Menu{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: white;
-    width: 90%;
-    height: 190%;
+    padding: 15px 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    color: white;
+    margin-top: -100px;
+    margin-bottom: 100px;
 }
-*/
 
 .logo{
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
 
+.logo > span{
+    color: black;
+}
+
+img{
+    width: 30%;
+    height: 60%;
 }
 
 .opcoes{
-    
+    background: none;
+    border: none;
+    color:  white;
+    cursor: pointer;
+    font-size: 30px;
 }
 
 .Conselho{

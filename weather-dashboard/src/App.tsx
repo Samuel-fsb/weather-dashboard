@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { FaBars } from 'react-icons/fa';
 import './App.css'
 
 
@@ -116,18 +117,18 @@ function App() {
   };
 
 
-
-
   return (
         <div className={`AppClima ${HorarioDia}`}>
           <header className='Menu'>
             <div className='Logo'>
-              <img src="../img/favicon.png" alt="Logo" />
+              <a href="#">
+                <img src="../img/favicon.png" alt="Logo" />
+              </a>
               <span>Weather Dashboard</span>
             </div>
 
             <div className='opcoes' onClick={MudarMenu}>
-              
+              <p><FaBars/></p>
               { Menu /* Colocar o ícone de barras na parte de cima */}
             </div>
           </header>
