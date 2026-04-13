@@ -111,10 +111,9 @@ function App() {
   }, [lat, lon]);
 
 
-  //Função para abrir e fechar o menu
+  //Função para abrir e fechar o menu.
   const MudarMenu = () => {
       SetMenu(!Menu);
-      
   };
 
 
@@ -129,10 +128,12 @@ function App() {
             </div>
 
             <div className='opcoes' onClick={MudarMenu}>
-              <p><FaBars/></p>
-              { Menu === true ? "BarraLataral Aberta" : "BarraLateral"}
+              <FaBars/>
             </div>
+
           </header>
+            <div className={ Menu ? "BarraLateralAberta" : "BarraLateral"}>
+            </div>
 
           <section className='Informacoes'>
             {(Carregamento || BuscarCidade) ? (<h1>Carregando...</h1>) :
